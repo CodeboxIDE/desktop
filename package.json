@@ -1,0 +1,30 @@
+{
+    "name": "codebox-desktop",
+    "version": "0.7.0",
+    "main": "build/index.html",
+    "window": {
+        "title": "Codebox",
+        "width": 400,
+        "height": 500,
+        "min_height": 400,
+        "min_width": 400,
+        "max_width": 400,
+        "icon": "build/static/images/icons/128.png",
+        "position": "center",
+        "show": true,
+        "toolbar": true,
+        "frame": true
+    },
+    "dependencies": {
+        "q": "0.9.6",
+        "lodash": "2.4.1",
+        "codebox-io": "0.3.2",
+        "nw-gyp": "0.12.2",
+        "grunt-exec": "0.4.5",
+        "grunt-node-webkit-builder": "0.1.16",
+        "grunt-contrib-compress": "0.6.0",
+        "grunt-contrib-copy": "0.5.0",
+        "grunt-contrib-clean": "0.5.0",
+        "grunt-contrib-less": "0.10.0"
+    }
+}
