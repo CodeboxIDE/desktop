@@ -1,3 +1,3 @@
 <img class="icon" src="<%- project.get("icon") %>" />
-<p class="name"><%- project.get("name") || project.get("path").split("/").pop() %></p>
+<p class="name"><%- project.name() %></p>
 <p class="path"><%- project.get("type") %>  - <%- project.get("path", "").replace(process.env.HOME || "", "~") %></p>

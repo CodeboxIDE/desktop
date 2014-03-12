@@ -5,7 +5,22 @@ define([
 
     // Open a local box
     var open = function(project) {
-
+        var _path = project.get("path");
+        var encodedPath = encodeURIComponent(_path);
+        var env = encodeURIComponent(JSON.stringify(process.env));
+        var win = node.gui.Window.open("../src/ide.html?path="+encodedPath+"&env="+env, {
+            'title': [project.name(),  "Codebox"].join('-'),
+            'position': 'center',
+            'width': 1024,
+            'height': 768,
+            'min_height': 400,
+            'min_width': 400,
+            'show': true,
+            'toolbar': true,
+            'frame': true,
+            'new-instance': true    // Because new isntance, we can't access the win object
+        });
+        win.maximize();
     };
 
     // Open a remote box

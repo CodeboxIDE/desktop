@@ -16,6 +16,10 @@ define([
             Project.__super__.initialize.apply(this, arguments);
         },
 
+        name: function() {
+            return this.get("name") || this.get("path").split("/").pop();
+        },
+
         open: function() {
             return codebox[this.get("type")](this);
         }
