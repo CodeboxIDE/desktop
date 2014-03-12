@@ -3,9 +3,10 @@ require([
     "hr/dom",
     "hr/hr",
     "hr/args",
+    "core/account",
     "views/projects",
     "text!resources/templates/main.html"
-], function(_, $, hr, args, ProjectsView, templateFile) {
+], function(_, $, hr, args, account, ProjectsView, templateFile) {
     // Configure hr
     hr.configure(args);
 
@@ -20,21 +21,37 @@ require([
         metas: {},
         links: {},
         events: {
+            // Toolbar buttons
             "click .toolbar .button-open": "onSelectFolder",
             "click .toolbar .button-settings": "onToggleSettings",
-            "change .project-open": "onOpenFolder"
+
+            // Files selection
+            "change .project-open": "onOpenFolder",
+
+            // Forms
+            "submit .form-login": "onSubmitLogin",
+            "submit .form-logout": "onSubmitLogout"
         },
 
         initialize: function() {
             Application.__super__.initialize.apply(this, arguments);
 
             this.projectsLocal = new ProjectsView({}, this);
+            this.listenTo(account, "set", this.update);
 
             return this;
         },
 
         templateContext: function() {
-            return {};
+            return {
+                'account': account
+            };
+        },
+
+        render: function() {
+            account.load();
+
+            return Application.__super__.render.apply(this, arguments);
         },
 
         finish: function() {
@@ -63,6 +80,23 @@ require([
         onOpenFolder: function(e) {
             var path = $(e.currentTarget).val();
             this.projectsLocal.collection.addLocalFolder(path);
+        },
+
+        // Submit form login
+        onSubmitLogin: function(e) {
+            if (e) e.preventDefault();
+
+            var email = this.$(".form-login .email").val();
+            var password = this.$(".form-login .password").val();
+
+            account.login(email, password);
+        },
+
+        // Submit form logout
+        onSubmitLogout: function(e) {
+            if (e) e.preventDefault();
+
+            account.logout();
         }
     });
 

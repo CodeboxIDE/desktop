@@ -6,18 +6,37 @@
     <p class="text-center">
         <img src="static/images/icons/128.png" width="48"/>
     </p>
-    <form role="form">
+    <% if (!account.isConnected()) { %>
+    <form role="form" class="form-login">
         <p class="help-block text-center">Access your cloud remote boxes from this applications by connecting your codebox.io account.</p>
         <div class="form-group">
-            <input type="email" class="form-control" placeholder="Enter email">
+            <input type="email" class="form-control email" placeholder="Enter email">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control password" placeholder="Password">
             <p class="help-block">Don't have an account? <a href="https://www.codebox.io/signup" target="_blank">Sign up for free</a></p>
         </div>
         <button type="submit" class="btn btn-block btn-default">Log in</button>
     </form>
+    <% } else { %>
+    <form role="form" class="form-logout">
+        <p class="help-block text-center">
+            This computer is currently linked to an account (name: <%- account.get("name") %>, email: <%- account.get("email") %>).
+        </p>
+        <p class="help-block text-center">
+            Everybody with access to your computer can access your boxes and your code.
+        </p>
+        <button type="submit" class="btn btn-block btn-default">Unlink this account</button>
+    </form>
+    <% } %>
 </div>
+
+<% if (!account.isConnected()) { %>
+<div class="login-alert">
+    Access your cloud boxes from this application
+</div>
+<% } %>
+
 <div class="toolbar">
     <a href="#" class="button button-open">open</a>
     <a href="#" class="button button-settings">settings</a>
