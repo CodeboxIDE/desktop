@@ -1,5 +1,5 @@
 {
-    "name": "codebox-desktop",
+    "name": "Codebox",
     "version": "0.7.0",
     "main": "build/index.html",
     "window": {
@@ -12,7 +12,7 @@
         "icon": "build/static/images/icons/128.png",
         "position": "center",
         "show": false,
-        "toolbar": true,
+        "toolbar": false,
         "frame": true
     },
     "dependencies": {

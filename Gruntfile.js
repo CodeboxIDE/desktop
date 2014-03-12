@@ -125,13 +125,33 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            tmp: ['.tmp/']
+            releases: [
+                "./appBuilds/releases"
+            ]
         }
     });
 
     // Build
     grunt.registerTask('build', [
         'hr'
+    ]);
+
+    // Desktop app generation
+    grunt.registerTask('build-mac', [
+        'build',
+        'exec:nwbuild',
+        'exec:build_extras',
+        'nodewebkit:mac',
+        'exec:copy_extras',
+        'exec:build_mac_release'
+    ]);
+    grunt.registerTask('build-linux', [
+        'build',
+        'exec:nwbuild',
+        'nodewebkit:linux',
+        'copy:linuxInstaller',
+        'copy:linuxIcon',
+        'exec:build_linux_release'
     ]);
 
     grunt.registerTask('default', [

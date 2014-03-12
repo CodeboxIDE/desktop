@@ -15,7 +15,7 @@ define([
             'height': 768,
             'min_height': 400,
             'min_width': 400,
-            'show': true,
+            'show': false,
             'toolbar': false,
             'frame': true,
             'new-instance': true    // Because new isntance, we can't access the win object
