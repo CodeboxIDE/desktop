@@ -77,6 +77,10 @@ require([
 
             if (this.projectsLocal.collection.size() == 0 && !account.isConnected()) this.onSelectFolder();
 
+            var win = node.gui.Window.get();
+            win.show();
+            win.focus();
+
 
             return Application.__super__.finish.apply(this, arguments);
         },

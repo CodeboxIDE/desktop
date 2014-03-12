@@ -4,7 +4,7 @@ define([
     "core/codebox",
     "collections/projects",
     "text!resources/templates/project.html"
-], function(_, hr, Projects, templateFile) {
+], function(_, hr, codebox, Projects, templateFile) {
     var ProjectItem = hr.List.Item.extend({
         className: "project",
         template: templateFile,

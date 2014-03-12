@@ -5,7 +5,7 @@ define([
     "core/account",
     "core/codeboxio"
 ], function(_, hr, Project, account, codeboxIO) {
-    var fs = node.require("fs")
+    var fs = node.require("fs");
 
     var Projects = hr.Collection.extend({
         model: Project,

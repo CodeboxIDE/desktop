@@ -11,8 +11,8 @@
         "max_width": 400,
         "icon": "build/static/images/icons/128.png",
         "position": "center",
-        "show": true,
-        "toolbar": false,
+        "show": false,
+        "toolbar": true,
         "frame": true
     },
     "dependencies": {
