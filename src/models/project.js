@@ -1,7 +1,8 @@
 define([
     "hr/utils",
-    "hr/hr"
-], function(_, hr) {
+    "hr/hr",
+    "core/codebox"
+], function(_, hr, codebox) {
     var Project = hr.Model.extend({
         defaults: {
             "name": null,
@@ -13,6 +14,10 @@ define([
 
         initialize: function() {
             Project.__super__.initialize.apply(this, arguments);
+        },
+
+        open: function() {
+            return codebox[this.get("type")](this);
         }
     });
 

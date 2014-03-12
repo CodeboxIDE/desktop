@@ -73,7 +73,7 @@ define([
                     .map(function(box) {
                         return {
                             'name': box.name,
-                            'path': client.config.host,
+                            'path': box.url,
                             'lastTimeUsed': box.lastHourPaid*1000,
                             'type': "remote",
                             'icon': "static/images/icons/128.png",

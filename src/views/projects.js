@@ -1,10 +1,9 @@
 define([
     "hr/utils",
     "hr/hr",
-    "core/codebox",
     "collections/projects",
     "text!resources/templates/project.html"
-], function(_, hr, codebox, Projects, templateFile) {
+], function(_, hr, Projects, templateFile) {
     var ProjectItem = hr.List.Item.extend({
         className: "project",
         template: templateFile,
@@ -19,7 +18,7 @@ define([
         },
         open: function(e) {
             if (e) e.preventDefault();
-            codebox[this.model.get("type")](this.model);
+            this.model.open();
         }
     });
 
