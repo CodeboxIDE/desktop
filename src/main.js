@@ -36,7 +36,17 @@ require([
         initialize: function() {
             Application.__super__.initialize.apply(this, arguments);
 
-            this.projectsLocal = new ProjectsView({}, this);
+            this.projectsLocal = new ProjectsView({
+                collection: {
+                    namespace: "projects"
+                }
+            }, this);
+            this.projectsRemote = new ProjectsView({
+                collection: {
+                    namespace: "remotes"
+                }
+            }, this);
+
             this.listenTo(account, "set", this.update);
 
             return this;
@@ -57,8 +67,15 @@ require([
         finish: function() {
             // Add projects
             this.projectsLocal.$el.appendTo(this.$(".projects-local"));
-            this.projectsLocal.collection.loadLocal();
-            if (this.projectsLocal.collection.size() == 0) this.onSelectFolder();
+            this.projectsLocal.collection.load();
+
+            // Add remote boxes
+            if (account.isConnected()) {
+                this.projectsRemote.$el.appendTo(this.$(".projects-remote"));
+                this.projectsRemote.collection.loadRemote();
+            }
+
+            if (this.projectsLocal.collection.size() == 0 && !account.isConnected()) this.onSelectFolder();
 
 
             return Application.__super__.finish.apply(this, arguments);

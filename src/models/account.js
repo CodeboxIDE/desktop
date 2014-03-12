@@ -32,7 +32,7 @@ define([
         login: function(email, password) {
             var that = this;
 
-            return codeboxIO.login(email, password)
+            return codeboxIO().login(email, password)
             .then(function(account) {
                 that.set({
                     name: account.name,

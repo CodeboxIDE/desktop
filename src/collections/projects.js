@@ -1,8 +1,10 @@
 define([
     "hr/utils",
     "hr/hr",
-    "models/project"
-], function(_, hr, Project) {
+    "models/project",
+    "core/account",
+    "core/codeboxio"
+], function(_, hr, Project, account, codeboxIO) {
     var fs = node.require("fs")
 
     var Projects = hr.Collection.extend({
@@ -13,49 +15,75 @@ define([
             return command.get("lastTimeUsed", 0);
         },
 
-        // Load from localstorage
-        loadLocal: function() {
-            var projects = hr.Storage.get("projects", []);
-            this.reset(
-                _.chain(projects)
-
-                // Filter invalid projects
-                .filter(function(project) {
-                    if (!project.path || !project.lastTimeUsed) return false;
-
-                    return fs.existsSync(project.path);
-                })
-
-                // Map project
-                .map(function(project) {
-                    return {
-                        'name': project.path.split("/").pop(),
-                        'path': project.path,
-                        'lastTimeUsed': project.lastTimeUsed
-                    }
-                })
-                .value()
-            )
+        // Valid a project
+        valid: function(project) {
+            if (project.get("type") == "local") {
+                return project.get("path") && fs.existsSync(project.get("path"));
+            }
+            return true;
         },
 
-        // Save to local
-        saveLocal: function() {
-            hr.Storage.set("projects", this.map(function(project) {
-                return {
-                    'path': project.get("path"),
-                    'lastTimeUsed': project.get("lastTimeUsed")
-                };
-            }));
+        // Save and load
+        save: function() {
+            hr.Storage.set(this.options.namespace, this.toJSON());
+        },
+        load: function() {
+            var that = this;
+            this.reset(
+                _.chain(hr.Storage.get(this.options.namespace, []))
+                .map(function(data) {
+                    if (_.isObject(data)) return new Project({}, data);
+                    return null;
+                })
+                .filter(function(project) {
+                    if (!project) return false;
+                    return that.valid(project);
+                })
+                .value()
+            );
         },
 
         // Add a local folder
         addLocalFolder: function(path) {
-            this.add({
-                'name': path.split("/").pop(),
+            var p = new Project({}, {
                 'path': path,
                 'lastTimeUsed': Date.now()
             });
-            this.saveLocal();
+
+            if (!this.valid(p)) return;
+
+            this.add(p);
+            this.save();
+        },
+
+
+        // Load remote box
+        loadRemote: function() {
+            var that = this, client;
+
+            that.load();
+
+            client = codeboxIO(account.get("token"));
+            return client.boxes()
+            .then(function(boxes) {
+                that.reset(
+                    _.chain(boxes)
+
+                    // Map project
+                    .map(function(box) {
+                        return {
+                            'name': box.name,
+                            'path': client.config.host,
+                            'lastTimeUsed': box.lastHourPaid*1000,
+                            'type': "remote",
+                            'icon': "static/images/icons/128.png",
+                            'boxId': box.id
+                        }
+                    })
+                    .value()
+                );
+                that.save();
+            });
         }
     });
 
