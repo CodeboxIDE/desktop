@@ -16,7 +16,7 @@ define([
             'min_height': 400,
             'min_width': 400,
             'show': true,
-            'toolbar': true,
+            'toolbar': false,
             'frame': true,
             'new-instance': true    // Because new isntance, we can't access the win object
         });
@@ -32,7 +32,7 @@ define([
         var boxName = project.get("name");
         var boxId = project.get("boxId");
         var url = project.get("path");
-        if (navigator.onLine) url = "https://codebox.io/boot/"+boxId+"?"+querystring.stringify(options);
+        if (navigator.onLine) url = "https://www.codebox.io/boot/"+boxId+"?"+querystring.stringify(options);
 
         var win = node.gui.Window.open(url, {
             'title': [boxName, "Remote Codebox"].join('-'),
@@ -42,7 +42,7 @@ define([
             'min_height': 400,
             'min_width': 400,
             'show': true,
-            'toolbar': true,
+            'toolbar': false,
             'frame': true,
             'nodejs': false,
             'new-instance': false

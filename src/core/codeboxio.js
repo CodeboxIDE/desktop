@@ -3,7 +3,7 @@ define([], function(_, hr) {
 
     return function(token) {
         return new CodeboxIO({
-            'host': "http://localhost:5000",
+            'host': "https://www.codebox.io",
             'token': token
         });
     }
