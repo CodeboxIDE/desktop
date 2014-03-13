@@ -47,6 +47,10 @@ require([
                 }
             }, this);
 
+            this.listenTo(this.projectsRemote, "add remove reset", function() {
+                this.projectsRemote.$el.toggle(this.projectsRemote.collection.size() > 0);
+            });
+
             this.listenTo(account, "set", this.update);
 
             return this;
@@ -85,6 +89,19 @@ require([
             return Application.__super__.finish.apply(this, arguments);
         },
 
+        loading: function(p) {
+            var that = this;
+            this.$(".loading-alert").show();
+
+            p.fin(function() {
+                return Q.delay(300);
+            }).fin(function() {
+                that.$(".loading-alert").hide();
+            });
+            
+            return p;
+        },
+
         // Click to open a file
         onSelectFolder: function(e) {
             if (e) e.preventDefault();
@@ -107,10 +124,12 @@ require([
         onSubmitLogin: function(e) {
             if (e) e.preventDefault();
 
+            var $btn = this.$(".form-login button");
             var email = this.$(".form-login .email").val();
             var password = this.$(".form-login .password").val();
 
-            account.login(email, password);
+
+            this.loading(account.login(email, password));
         },
 
         // Submit form logout

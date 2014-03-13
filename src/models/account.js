@@ -45,9 +45,11 @@ define([
 
         // Logout
         logout: function() {
+            hr.Storage.clear();
             this.clear();
             this.save();
             this.load();
+
         }
     });
 

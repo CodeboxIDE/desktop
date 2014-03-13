@@ -25,7 +25,13 @@ define([
     var ProjectsView = hr.List.extend({
         className: "projects",
         Collection: Projects,
-        Item: ProjectItem
+        Item: ProjectItem,
+        
+        displayEmptyList: function() {
+            return $("<div>", {
+                html: "No recent folders"
+            });
+        },
     });
 
     return ProjectsView;
