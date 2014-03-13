@@ -117,7 +117,8 @@ require([
         // When folder selector changed
         onOpenFolder: function(e) {
             var path = $(e.currentTarget).val();
-            this.projectsLocal.collection.addLocalFolder(path);
+            var p = this.projectsLocal.collection.addLocalFolder(path);
+            if (p) p.open();
         },
 
         // Submit form login

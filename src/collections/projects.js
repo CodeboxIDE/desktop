@@ -54,6 +54,8 @@ define([
 
             this.add(p);
             this.save();
+
+            return p;
         },
 
 
