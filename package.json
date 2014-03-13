@@ -12,7 +12,7 @@
         "icon": "build/static/images/icons/128.png",
         "position": "center",
         "show": false,
-        "toolbar": true,
+        "toolbar": false,
         "frame": true
     },
     "dependencies": {
