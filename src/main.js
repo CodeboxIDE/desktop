@@ -3,10 +3,11 @@ require([
     "hr/dom",
     "hr/hr",
     "hr/args",
+    "core/update",
     "core/account",
     "views/projects",
     "text!resources/templates/main.html"
-], function(_, $, hr, args, account, ProjectsView, templateFile) {
+], function(_, $, hr, args, update, account, ProjectsView, templateFile) {
     // Configure hr
     hr.configure(args);
 
@@ -53,6 +54,11 @@ require([
 
             this.listenTo(account, "set", this.update);
 
+            update.isAvailable()
+            .then(function(version) {
+                alert("An update is available ("+version+"), download it at https://www.codebox.io");
+            });
+
             return this;
         },
 
@@ -84,7 +90,6 @@ require([
             var win = node.gui.Window.get();
             win.show();
             win.focus();
-
 
             return Application.__super__.finish.apply(this, arguments);
         },

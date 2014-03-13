@@ -22,6 +22,8 @@
         "harbor": "0.2.0",
         "qpatch": "0.0.8",
         "codebox": "0.7.0",
+        "semver": "2.2.1",
+        "request": "2.27.0",
         "codebox-io": "git+https://github.com/FriendCode/codebox-client.git#a61c2325a2a9cf679e644d3c98955cd904e23439",
         "nw-gyp": "0.12.2",
         "grunt-exec": "0.4.5",
