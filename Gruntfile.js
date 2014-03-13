@@ -127,7 +127,20 @@ module.exports = function (grunt) {
         clean: {
             releases: [
                 "./appBuilds/releases"
-            ]
+            ],
+            // Installer for linux
+            linuxInstaller: {
+                cwd: './',
+                src: 'scripts/install_linux.sh',
+                dest: './appBuilds/releases/Codebox/linux32/Codebox/install.sh'
+            },
+
+            // Installer for linux
+            linuxIcon: {
+                cwd: './',
+                src: './build/static/images/icons/128.png',
+                dest: './appBuilds/releases/Codebox/linux32/Codebox/icon.png'
+            },
         }
     });
 
