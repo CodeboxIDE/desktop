@@ -127,7 +127,9 @@ module.exports = function (grunt) {
         clean: {
             releases: [
                 "./appBuilds/releases"
-            ],
+            ]
+        },
+        copy: {
             // Installer for linux
             linuxInstaller: {
                 cwd: './',
