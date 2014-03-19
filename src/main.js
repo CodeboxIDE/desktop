@@ -15,6 +15,18 @@ require([
         loader: "text"
     });
 
+    // Force permissions on sh files (detetcor, ...)
+    var dirname = node.require("../dirname.js");
+    var exec = node.require('child_process').exec;
+    var path = node.require('path');
+
+    var child = exec("find ./ -name '*.sh' -print0 | xargs -0 chmod +x", {
+        cwd: path.resolve(dirname.dirname, "node_modules/codebox")
+    }, function (error, stdout, stderr) {
+        console.log(error, stdout, stderr)
+    });
+
+
     // Define base application
     var Application = hr.Application.extend({
         name: "Codebox",
