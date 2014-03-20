@@ -74,7 +74,10 @@ module.exports = function (grunt) {
                     // grunt.file.copy duplicates symbolic and hard links
                     // so we need to copy it with the shell
                     "!./extras/**",
-                    "!./appBuilds/**"
+                    "!./appBuilds/**",
+                    "!./node_modules/grunt-*/**",
+                    "!./node_modules/grunt/**",
+                    "!./node_modules/nw-gyp/**"
                 ]
             },
             linux: {
@@ -89,7 +92,10 @@ module.exports = function (grunt) {
                 },
                 src: [
                     "./**",
-                    "!./appBuilds/**"
+                    "!./appBuilds/**",
+                    "!./node_modules/grunt-*/**",
+                    "!./node_modules/grunt/**",
+                    "!./node_modules/nw-gyp/**"
                 ]
             }
         },
