@@ -88,7 +88,8 @@ module.exports = function (grunt) {
                     zip: false
                 },
                 src: [
-                    "./**"
+                    "./**",
+                    "!./appBuilds/**"
                 ]
             }
         },
