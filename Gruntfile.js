@@ -169,7 +169,11 @@ module.exports = function (grunt) {
                 src: 'scripts/install_linux.sh',
                 dest: './appBuilds/releases/Codebox/linux32/Codebox/install.sh'
             },
-
+            linux32Start: {
+                cwd: './',
+                src: 'scripts/linux_start.sh',
+                dest: './appBuilds/releases/Codebox/linux32/Codebox/start.sh'
+            },
             // Installer for linux
             linux32Icon: {
                 cwd: './',
@@ -181,6 +185,12 @@ module.exports = function (grunt) {
                 cwd: './',
                 src: 'scripts/install_linux.sh',
                 dest: './appBuilds/releases/Codebox/linux64/Codebox/install.sh'
+            },
+            // Entry point for linux
+            linux64Start: {
+                cwd: './',
+                src: 'scripts/linux_start.sh',
+                dest: './appBuilds/releases/Codebox/linux64/Codebox/start.sh'
             },
 
             // Installer for linux
@@ -211,6 +221,7 @@ module.exports = function (grunt) {
         'exec:nwbuild',
         'nodewebkit:linux32',
         'copy:linux32Installer',
+        'copy:linux32Start',
         'copy:linux32Icon',
         'exec:build_linux32_release'
     ]);
@@ -219,6 +230,7 @@ module.exports = function (grunt) {
         'exec:nwbuild',
         'nodewebkit:linux64',
         'copy:linux64Installer',
+        'copy:linux64Start',
         'copy:linux64Icon',
         'exec:build_linux64_release'
     ]);

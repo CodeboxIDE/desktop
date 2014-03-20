@@ -59,15 +59,14 @@ echo "Encoding=UTF-8" >> $FILE_DESKTOP
 echo "Name=Codebox" >> $FILE_DESKTOP
 echo "GenericName=Code Editor" >> $FILE_DESKTOP
 echo "Comment=Code Editor" >> $FILE_DESKTOP
-echo "Exec=$CODEBOX_PATH/Codebox" >> $FILE_DESKTOP
+echo "Exec=bash $CODEBOX_PATH/start.sh" >> $FILE_DESKTOP
 echo "Icon= $CODEBOX_PATH/icon.png"  >> $FILE_DESKTOP
 echo "Categories=Development;Utilities;TextEditor" >> $FILE_DESKTOP
 echo "Terminal=false" >> $FILE_DESKTOP
 
 echo "Granting the shortcut execution permissions"
-echo "(this requires root access)"
 cp $FILE_DESKTOP /home/$(whoami)/Desktop
-sudo chmod +x /home/$(whoami)/Desktop/$FILE_DESKTOP
+chmod +x /home/$(whoami)/Desktop/$FILE_DESKTOP
 echo ""
 
 echo "Writing desktop menu item"
