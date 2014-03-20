@@ -80,7 +80,7 @@ module.exports = function (grunt) {
                     "!./node_modules/nw-gyp/**"
                 ]
             },
-            linux: {
+            linux32: {
                 options: {
                     build_dir: './appBuilds',
                     mac: false,
@@ -97,7 +97,26 @@ module.exports = function (grunt) {
                     "!./node_modules/grunt/**",
                     "!./node_modules/nw-gyp/**"
                 ]
+            },
+            linux64: {
+                options: {
+                    build_dir: './appBuilds',
+                    mac: false,
+                    win: false,
+                    linux32: false,
+                    linux64: true,
+                    version: NW_VERSION,
+                    zip: false
+                },
+                src: [
+                    "./**",
+                    "!./appBuilds/**",
+                    "!./node_modules/grunt-*/**",
+                    "!./node_modules/grunt/**",
+                    "!./node_modules/nw-gyp/**"
+                ]
             }
+
         },
         exec: {
             nwbuild: {
@@ -125,8 +144,14 @@ module.exports = function (grunt) {
                 stdout: true,
                 stderr: true
             },
-            build_linux_release: {
-                command: "./scripts/build_linux_tar.sh",
+            build_linux32_release: {
+                command: "./scripts/build_linux32_tar.sh",
+                cwd: './',
+                stdout: true,
+                stderr: true
+            },
+            build_linux64_release: {
+                command: "./scripts/build_linux64_tar.sh",
                 cwd: './',
                 stdout: true,
                 stderr: true
@@ -139,17 +164,30 @@ module.exports = function (grunt) {
         },
         copy: {
             // Installer for linux
-            linuxInstaller: {
+            linux32Installer: {
                 cwd: './',
                 src: 'scripts/install_linux.sh',
                 dest: './appBuilds/releases/Codebox/linux32/Codebox/install.sh'
             },
 
             // Installer for linux
-            linuxIcon: {
+            linux32Icon: {
                 cwd: './',
                 src: './build/static/images/icons/128.png',
                 dest: './appBuilds/releases/Codebox/linux32/Codebox/icon.png'
+            },
+            // Installer for linux
+            linux64Installer: {
+                cwd: './',
+                src: 'scripts/install_linux.sh',
+                dest: './appBuilds/releases/Codebox/linux64/Codebox/install.sh'
+            },
+
+            // Installer for linux
+            linux64Icon: {
+                cwd: './',
+                src: './build/static/images/icons/128.png',
+                dest: './appBuilds/releases/Codebox/linux64/Codebox/icon.png'
             },
         }
     });
@@ -168,13 +206,21 @@ module.exports = function (grunt) {
         'exec:copy_extras',
         'exec:build_mac_release'
     ]);
-    grunt.registerTask('build-linux', [
+    grunt.registerTask('build-linux32', [
         'build',
         'exec:nwbuild',
-        'nodewebkit:linux',
-        'copy:linuxInstaller',
-        'copy:linuxIcon',
-        'exec:build_linux_release'
+        'nodewebkit:linux32',
+        'copy:linux32Installer',
+        'copy:linux32Icon',
+        'exec:build_linux32_release'
+    ]);
+    grunt.registerTask('build-linux64', [
+        'build',
+        'exec:nwbuild',
+        'nodewebkit:linux64',
+        'copy:linux64Installer',
+        'copy:linux64Icon',
+        'exec:build_linux64_release'
     ]);
 
     grunt.registerTask('default', [
