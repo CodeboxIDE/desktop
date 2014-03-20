@@ -155,6 +155,12 @@ module.exports = function (grunt) {
                 cwd: './',
                 stdout: true,
                 stderr: true
+            },
+            build_chrome_release: {
+                command: "./scripts/build_chrome.sh",
+                cwd: './',
+                stdout: true,
+                stderr: true
             }
         },
         clean: {
@@ -233,6 +239,10 @@ module.exports = function (grunt) {
         'copy:linux64Start',
         'copy:linux64Icon',
         'exec:build_linux64_release'
+    ]);
+    grunt.registerTask('build-chrome', [
+        'build',
+        'exec:build_chrome_release'
     ]);
 
     grunt.registerTask('default', [

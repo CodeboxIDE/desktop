@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "minimum_chrome_version": "23",
+    "name": "Codebox",
+    "description": "One IDE, All Platform",
+    "version": "1",
+    "offline_enabled": true,
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "icons": {
+        "128": "static/images/icons/128.png"
+    }
+}
