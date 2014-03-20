@@ -10,7 +10,13 @@
             "scripts": ["background.js"]
         }
     },
+    "permissions": [
+        "webview"
+    ],
     "icons": {
         "128": "static/images/icons/128.png"
+    },
+    "sandbox": {
+        "pages": ["app.html"]
     }
 }

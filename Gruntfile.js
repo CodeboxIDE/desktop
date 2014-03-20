@@ -49,7 +49,9 @@ module.exports = function (grunt) {
                 "style": path.resolve(srcPath, "resources/stylesheets/main.less"),
 
                 // Modules paths
-                'paths': {},
+                'paths': {
+                    "platform": "platforms/chrome"
+                },
                 "shim": {},
                 'args': {},
                 'options': {}
