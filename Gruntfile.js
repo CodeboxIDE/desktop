@@ -74,6 +74,7 @@ module.exports = function (grunt) {
                     // grunt.file.copy duplicates symbolic and hard links
                     // so we need to copy it with the shell
                     "!./extras/**",
+                    "!./appBuilds/**"
                 ]
             },
             linux: {
