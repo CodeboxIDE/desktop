@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "minimum_chrome_version": "23",
+    "minimum_chrome_version": "24",
     "name": "Codebox",
     "description": "One IDE, All Platform",
     "version": "1",
@@ -17,6 +17,6 @@
         "128": "static/images/icons/128.png"
     },
     "sandbox": {
-        "pages": ["app.html"]
+      "pages": ["index.html"]
     }
 }
