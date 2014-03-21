@@ -3,19 +3,18 @@ require([
     "hr/dom",
     "hr/hr",
     "hr/args",
+    "platform/infos",
     "platform/update",
     "core/account",
     "views/projects",
     "text!resources/templates/main.html"
-], function(_, $, hr, args, update, account, ProjectsView, templateFile) {
+], function(_, $, hr, args, platform, update, account, ProjectsView, templateFile) {
     // Configure hr
     hr.configure(args);
 
     hr.Resources.addNamespace("templates", {
         loader: "text"
     });
-
-    console.log("start app");
 
     // Define base application
     var Application = hr.Application.extend({
@@ -50,9 +49,11 @@ require([
                 }
             }, this);
 
-            this.listenTo(this.projectsRemote, "add remove reset", function() {
-                this.projectsRemote.$el.toggle(this.projectsRemote.collection.size() > 0);
-            });
+            if (platform.allowOpenLocal) {
+                this.listenTo(this.projectsRemote, "add remove reset", function() {
+                    this.projectsRemote.$el.toggle(this.projectsRemote.collection.size() > 0);
+                }); 
+            }
 
             this.listenTo(account, "set", this.update);
 
@@ -66,7 +67,8 @@ require([
 
         templateContext: function() {
             return {
-                'account': account
+                'account': account,
+                'platform': platform
             };
         },
 
@@ -87,7 +89,12 @@ require([
                 this.projectsRemote.collection.loadRemote();
             }
 
-            if (this.projectsLocal.collection.size() == 0 && !account.isConnected()) this.onSelectFolder();
+            if (platform.allowOpenLocal) {
+                if (this.projectsLocal.collection.size() == 0 && !account.isConnected()) this.onSelectFolder();
+            } else {
+                if (!account.isConnected()) this.onToggleSettings();
+            }
+            
 
             /*var win = node.gui.Window.get();
             win.show();
@@ -130,8 +137,6 @@ require([
 
         // Submit form login
         onSubmitLogin: function(e) {
-            console.log("login !!", e);
-
             if (e) e.preventDefault();
 
             var $btn = this.$(".form-login button");

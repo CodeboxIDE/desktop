@@ -1,5 +1,7 @@
 define(function() {
     return {
-        name: "Chrome"
+        name: "Chrome",
+
+        allowOpenLocal: false
     };
 });

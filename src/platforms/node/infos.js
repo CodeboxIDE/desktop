@@ -1,5 +1,7 @@
 define(function() {
     return {
-        name: "Node"
+        name: "Node",
+
+        allowOpenLocal: true
     };
 });
