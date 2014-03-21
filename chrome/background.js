@@ -1,31 +1,55 @@
-var webview = null;
 
+var AppWindow = function(startUrl, settings) {
+    this.startUrl = startUrl;
+    this.win_= null;
+    this.webview = null;
+    this.settings = settings;
 
-chrome.app.runtime.onLaunched.addListener(function(launchData) {
-    chrome.app.window.create('index.html', {
-        id:"codebox",
+    this.createWindow();
+};
+
+// Create a new window. Defer navigating the webview until the DOM is loaded.
+AppWindow.prototype.createWindow = function() {
+    chrome.app.window.create('window.html', {
         bounds: {
-            width: 400,
-            height: 500
+            width: this.settings.width,
+            height: this.settings.height
         },
         frame: 'chrome'
     }, function(win) {
-        var resize = function() {
-            var bounds = win.getBounds(), change = false;
+        this.win = win;
+        this.win.contentWindow.addEventListener('DOMContentLoaded', this.onLoad.bind(this));
+        this.win.onBoundsChanged.addListener(this.onBoundsChanged.bind(this));
+    }.bind(this));
+}
 
-            if (bounds.width != 400) {
-                bounds.width = 400;
-                change = true;
-            }
-            if (bounds.height < 400) {
-                bounds.height = 400;
-                change = true;
-            }
+// Resize the window's webview to the window's size and load the start URL.
+AppWindow.prototype.onLoad = function() {
+    this.webview = this.win.contentWindow.document.getElementById('webview');
+    this.onBoundsChanged();
+    this.loadUrl(this.startUrl);
+}
 
-            if (change) win.setBounds(bounds);
-        }
-        
-        win.contentWindow.launchData = launchData;
-        resize();
-    });
+// Update this window's cached bounds and, if the window has been resized as
+// opposed to just moved, also update the global app's default window size.
+AppWindow.prototype.onBoundsChanged = function() {
+    var bounds = this.win.getBounds();
+    this.webview.style.height = bounds.height + 'px';
+    this.webview.style.width = bounds.width + 'px';
+}
+
+// Navigate the window's webview to an  URL.
+AppWindow.prototype.loadUrl = function(url) {
+    this.webview.src = url;
+};
+
+
+chrome.app.runtime.onLaunched.addListener(function(launchData) {
+    var mainWin = new AppWindow("http://localhost:5000/static/app/index.html", {
+        width: 400,
+        height: 500,
+        maxWidth: 400,
+        minWidth: 400,
+        minHeight: 500
+    })
 });

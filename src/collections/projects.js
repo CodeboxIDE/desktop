@@ -3,9 +3,10 @@ define([
     "hr/hr",
     "models/project",
     "platform/fs",
+    "platform/storage",
+    "platform/api",
     "core/account",
-    "core/codeboxio"
-], function(_, hr, Project, fs, account, codeboxIO) {
+], function(_, hr, Project, fs, storage, codeboxIO, account) {
     var Projects = hr.Collection.extend({
         model: Project,
 
@@ -31,6 +32,7 @@ define([
 
             storage.get(this.options.namespace, [])
             .then(function(projects) {
+                console.log("load projects 2", projects);
                 that.reset(
                     _.chain(projects)
                     .map(function(data) {

@@ -2,7 +2,7 @@ define([
     "hr/utils",
     "hr/hr",
     "platform/storage",
-    "core/codeboxio"
+    "platform/api"
 ], function(_, hr, storage, codeboxIO) {
 
     var Account = hr.Model.extend({
@@ -38,6 +38,7 @@ define([
         login: function(email, password) {
             var that = this;
 
+            console.log("login ", email, password);
             return codeboxIO().login(email, password)
             .then(function(account) {
                 that.set({

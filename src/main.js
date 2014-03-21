@@ -89,9 +89,9 @@ require([
 
             if (this.projectsLocal.collection.size() == 0 && !account.isConnected()) this.onSelectFolder();
 
-            var win = node.gui.Window.get();
+            /*var win = node.gui.Window.get();
             win.show();
-            win.focus();
+            win.focus();*/
 
             return Application.__super__.finish.apply(this, arguments);
         },
@@ -130,6 +130,8 @@ require([
 
         // Submit form login
         onSubmitLogin: function(e) {
+            console.log("login !!", e);
+
             if (e) e.preventDefault();
 
             var $btn = this.$(".form-login button");

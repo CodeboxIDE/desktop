@@ -1,16 +1,16 @@
 #!/bin/bash
 
-SOURCE=appBuilds/releases/Codebox/chrome
+SOURCE=appBuilds/releases/codebox/chrome/
+
 OUTPUT=appBuilds/releases/codebox-chrome.zip
 
 echo "Clean old build"
-rm -rf $SOURCE
+rm -rf $SOURCE $OUTPUT
 
 echo "Create chrome application"
 mkdir -p $SOURCE
 cp -R ./build/ $SOURCE
-cp -R ./chrome/ $SOURCE
 cp ./node_modules/codebox-io/codebox-io.js $SOURCE
 
 echo "Building Application ZIP: $OUTPUT"
-zip -ru $OUTPUT ${SOURCE}/*
+zip -ru $OUTPUT ./chrome/*

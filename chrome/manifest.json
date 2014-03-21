@@ -7,16 +7,15 @@
     "offline_enabled": true,
     "app": {
         "background": {
-            "scripts": ["background.js"]
+            "scripts": [
+                "background.js"
+            ]
         }
     },
     "permissions": [
         "webview", "storage"
     ],
     "icons": {
-        "128": "static/images/icons/128.png"
-    },
-    "sandbox": {
-      "pages": ["index.html"]
+        "128": "icons/128.png"
     }
 }

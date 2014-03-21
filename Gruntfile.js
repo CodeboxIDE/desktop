@@ -17,6 +17,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-manifest');
 
     var hrConfig = {
         // Base directory for the application
@@ -30,7 +31,6 @@ module.exports = function (grunt) {
 
         // Main entry point for application
         "main": "main",
-        "index": grunt.file.read(path.resolve(srcPath, "index.html")),
 
         // Build output directory
         "build": path.resolve(__dirname, "build"),
@@ -58,15 +58,38 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         hr: {
             node: _.extend({}, hrConfig, {
+                'index': grunt.file.read(path.resolve(srcPath, "platforms/node/index.html")),
                 'paths': {
                     "platform": "platforms/node"
                 }
             }),
             chrome: _.extend({}, hrConfig, {
+                'index': grunt.file.read(path.resolve(srcPath, "platforms/chrome/index.html")),
                 'paths': {
                     "platform": "platforms/chrome"
                 }
             })
+        },
+        manifest: {
+            generate: {
+                options: {
+                    basePath: path.resolve(__dirname, "appBuilds/releases/codebox/chrome"),
+                    cache: [],
+                    network: ['*'],
+                    preferOnline: false,
+                    verbose: false,
+                    timestamp: true,
+                    hash: true,
+                    master: ['index.html']
+                },
+                src: [
+                    '**/*.js',
+                    '**/*.css',
+                    '**/*.png',
+                    '*.js'
+                ],
+                dest: path.resolve(__dirname, "appBuilds/releases/codebox/chrome/manifest.appcache")
+            }
         },
         nodewebkit: {
             mac: {
@@ -255,7 +278,8 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('build-chrome', [
         'hr:chrome',
-        'exec:build_chrome_release'
+        'exec:build_chrome_release',
+        'manifest'
     ]);
 
     grunt.registerTask('default', [
