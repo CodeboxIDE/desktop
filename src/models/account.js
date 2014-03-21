@@ -1,9 +1,8 @@
 define([
     "hr/utils",
     "hr/hr",
-    "platform/storage",
     "platform/api"
-], function(_, hr, storage, codeboxIO) {
+], function(_, hr, codeboxIO) {
 
     var Account = hr.Model.extend({
         defaults: {
@@ -23,15 +22,10 @@ define([
 
         // Load and save
         load: function() {
-            var that = this;
-
-            return storage.get("accounts")
-            .then(function(account) {
-                that.set(account)
-            });
+            this.set(hr.Storage.get("account"));
         },
         save: function() {
-            storage.set("account", this.toJSON());
+            hr.Storage.set("account", this.toJSON());
         },
 
         // Login
@@ -52,7 +46,7 @@ define([
 
         // Logout
         logout: function() {
-            storage.clear();
+            hr.Storage.clear();
             this.clear();
             this.save();
             this.load();

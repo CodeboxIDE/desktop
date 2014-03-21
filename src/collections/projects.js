@@ -3,10 +3,9 @@ define([
     "hr/hr",
     "models/project",
     "platform/fs",
-    "platform/storage",
     "platform/api",
     "core/account",
-], function(_, hr, Project, fs, storage, codeboxIO, account) {
+], function(_, hr, Project, fs, codeboxIO, account) {
     var Projects = hr.Collection.extend({
         model: Project,
 
@@ -25,27 +24,22 @@ define([
 
         // Save and load
         save: function() {
-            storage.set(this.options.namespace, this.toJSON());
+            hr.Storage.set(this.options.namespace, this.toJSON());
         },
         load: function() {
             var that = this;
-
-            storage.get(this.options.namespace, [])
-            .then(function(projects) {
-                console.log("load projects 2", projects);
-                that.reset(
-                    _.chain(projects)
-                    .map(function(data) {
-                        if (_.isObject(data)) return new Project({}, data);
-                        return null;
-                    })
-                    .filter(function(project) {
-                        if (!project) return false;
-                        return that.valid(project);
-                    })
-                    .value()
-                );
-            });
+            that.reset(
+                _.chain(hr.Storage.get(this.options.namespace, []))
+                .map(function(data) {
+                    if (_.isObject(data)) return new Project({}, data);
+                    return null;
+                })
+                .filter(function(project) {
+                    if (!project) return false;
+                    return that.valid(project);
+                })
+                .value()
+            );
         },
 
         // Add a local folder

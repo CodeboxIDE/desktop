@@ -26,6 +26,8 @@ AppWindow.prototype.createWindow = function() {
 // Resize the window's webview to the window's size and load the start URL.
 AppWindow.prototype.onLoad = function() {
     this.webview = this.win.contentWindow.document.getElementById('webview');
+    this.webview.addEventListener('newwindow', this.onNewWindow.bind(this));
+
     this.onBoundsChanged();
     this.loadUrl(this.startUrl);
 }
@@ -57,6 +59,18 @@ AppWindow.prototype.onBoundsChanged = function() {
     this.webview.style.height = bounds.height + 'px';
     this.webview.style.width = bounds.width + 'px';
 }
+
+// Fired when the guest page attempts to open a new browser window.
+AppWindow.prototype.onNewWindow = function(e) {
+    if (e.name == "popup") {
+        var newwin = new AppWindow(e.targetUrl, {
+            width: 1000,
+            height: 600
+        });
+    } else {
+        window.open(e.targetUrl);
+    }
+};
 
 // Navigate the window's webview to an  URL.
 AppWindow.prototype.loadUrl = function(url) {

@@ -1,7 +1,7 @@
 define([
     "hr/utils",
     "hr/hr",
-    "core/codebox"
+    "platform/codebox"
 ], function(_, hr, codebox) {
     var Project = hr.Model.extend({
         defaults: {
