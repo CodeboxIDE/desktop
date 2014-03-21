@@ -1,8 +1,6 @@
 define([
     "core/account"
 ], function(account) {
-    var querystring = node.require("querystring");
-
     // Open a local box
     var open = function(project) {
         var _path = project.get("path");
@@ -32,7 +30,7 @@ define([
         var boxName = project.get("name");
         var boxId = project.get("boxId");
         var url = project.get("path");
-        if (navigator.onLine) url = "https://www.codebox.io/boot/"+boxId+"?"+querystring.stringify(options);
+        if (navigator.onLine) url = "https://www.codebox.io/boot/"+boxId+"?"+$.param(options);
 
         var win = node.gui.Window.open(url, {
             'title': [boxName, "Remote Codebox"].join('-'),

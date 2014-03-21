@@ -3,7 +3,7 @@ require([
     "hr/dom",
     "hr/hr",
     "hr/args",
-    "core/update",
+    "platform/update",
     "core/account",
     "views/projects",
     "text!resources/templates/main.html"
@@ -14,6 +14,8 @@ require([
     hr.Resources.addNamespace("templates", {
         loader: "text"
     });
+
+    console.log("start app");
 
     // Define base application
     var Application = hr.Application.extend({

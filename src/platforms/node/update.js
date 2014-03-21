@@ -1,9 +1,6 @@
 define([
-    "hr/promise",
-    "platform/infos"
-], function(Q, platform) {
-    console.log(platform);
-
+    "hr/promise"
+], function(Q) {
     var request = node.require("request");
     var semver = node.require("semver");
     var pkg = node.require("../package.json");

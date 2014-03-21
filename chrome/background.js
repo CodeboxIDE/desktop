@@ -2,7 +2,7 @@ var webview = null;
 
 
 chrome.app.runtime.onLaunched.addListener(function(launchData) {
-    chrome.app.window.create('app.html', {
+    chrome.app.window.create('index.html', {
         id:"codebox",
         bounds: {
             width: 400,
@@ -25,7 +25,6 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
             if (change) win.setBounds(bounds);
         }
         
-
         win.contentWindow.launchData = launchData;
         resize();
     });

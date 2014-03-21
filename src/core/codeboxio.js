@@ -1,8 +1,8 @@
-define([], function(_, hr) {
-    var CodeboxIO = node.require("codebox-io").Client;
-
+define([
+    "platform/api"
+], function(codeboxIO) {
     return function(token) {
-        return new CodeboxIO({
+        return new codeboxIO.Client({
             'host': "https://www.codebox.io",
             'token': token
         });

@@ -2,11 +2,10 @@ define([
     "hr/utils",
     "hr/hr",
     "models/project",
+    "platform/fs",
     "core/account",
     "core/codeboxio"
-], function(_, hr, Project, account, codeboxIO) {
-    var fs = node.require("fs");
-
+], function(_, hr, Project, fs, account, codeboxIO) {
     var Projects = hr.Collection.extend({
         model: Project,
 
@@ -18,29 +17,33 @@ define([
         // Valid a project
         valid: function(project) {
             if (project.get("type") == "local") {
-                return project.get("path") && fs.existsSync(project.get("path"));
+                return project.get("path") && fs.exists(project.get("path"));
             }
             return true;
         },
 
         // Save and load
         save: function() {
-            hr.Storage.set(this.options.namespace, this.toJSON());
+            storage.set(this.options.namespace, this.toJSON());
         },
         load: function() {
             var that = this;
-            this.reset(
-                _.chain(hr.Storage.get(this.options.namespace, []))
-                .map(function(data) {
-                    if (_.isObject(data)) return new Project({}, data);
-                    return null;
-                })
-                .filter(function(project) {
-                    if (!project) return false;
-                    return that.valid(project);
-                })
-                .value()
-            );
+
+            storage.get(this.options.namespace, [])
+            .then(function(projects) {
+                that.reset(
+                    _.chain(projects)
+                    .map(function(data) {
+                        if (_.isObject(data)) return new Project({}, data);
+                        return null;
+                    })
+                    .filter(function(project) {
+                        if (!project) return false;
+                        return that.valid(project);
+                    })
+                    .value()
+                );
+            });
         },
 
         // Add a local folder

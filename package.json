@@ -16,7 +16,7 @@
         "frame": true
     },
     "dependencies": {
-        "hr.js": "0.6.3",
+        "hr.js": "0.6.4",
         "q": "0.9.6",
         "lodash": "2.4.1",
         "harbor": "0.2.0",
@@ -24,7 +24,7 @@
         "codebox": "0.7.2",
         "semver": "2.2.1",
         "request": "2.27.0",
-        "codebox-io": "git+https://github.com/FriendCode/codebox-client.git#a61c2325a2a9cf679e644d3c98955cd904e23439",
+        "codebox-io": "0.4.0",
         "nw-gyp": "0.12.2",
         "grunt-exec": "0.4.5",
         "grunt-node-webkit-builder": "0.1.16",
