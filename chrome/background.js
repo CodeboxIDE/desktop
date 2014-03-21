@@ -33,13 +33,34 @@ AppWindow.prototype.onLoad = function() {
 // Update this window's cached bounds and, if the window has been resized as
 // opposed to just moved, also update the global app's default window size.
 AppWindow.prototype.onBoundsChanged = function() {
-    var bounds = this.win.getBounds();
+    var bounds = this.win.getBounds(), change = false;
+
+    if (this.settings.minWidth && bounds.width < this.settings.minWidth) {
+        change = true;
+        bounds.width = this.settings.minWidth;
+    }
+    if (this.settings.minHeight && bounds.height < this.settings.minHeight) {
+        change = true;
+        bounds.height = this.settings.minHeight;
+    }
+    if (this.settings.maxWidth && bounds.width > this.settings.maxWidth) {
+        change = true;
+        bounds.width = this.settings.maxWidth;
+    }
+    if (this.settings.maxHeight && bounds.height > this.settings.maxHeight) {
+        change = true;
+        bounds.height = this.settings.maxHeight;
+    }
+
+    if (change) this.win.setBounds(bounds);
+
     this.webview.style.height = bounds.height + 'px';
     this.webview.style.width = bounds.width + 'px';
 }
 
 // Navigate the window's webview to an  URL.
 AppWindow.prototype.loadUrl = function(url) {
+    this.webview.partition = this.settings.partition || "codebox";
     this.webview.src = url;
 };
 
