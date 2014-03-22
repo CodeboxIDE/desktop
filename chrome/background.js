@@ -80,7 +80,7 @@ AppWindow.prototype.loadUrl = function(url) {
 
 
 chrome.app.runtime.onLaunched.addListener(function(launchData) {
-    var mainWin = new AppWindow("http://localhost:5000/static/app/index.html", {
+    var mainWin = new AppWindow("https://www.codebox.io/app/", {
         width: 400,
         height: 500,
         maxWidth: 400,
