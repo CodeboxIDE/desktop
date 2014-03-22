@@ -156,23 +156,29 @@ require([
         onSubmitLogin: function(e) {
             if (e) e.preventDefault();
 
+            var that = this;
             var email = this.$(".form-login .email").val();
             var password = this.$(".form-login .password").val();
 
 
             this.loading(account.login(email, password))
-            .fail(_.partial(this.alert, "error").bind(this));
+            .then(function() {
+                that.toggleDialog("settings", false);
+            }, _.partial(this.alert, "error").bind(this));
         },
 
         // Submit form create
         onSubmitCreate: function(e) {
             if (e) e.preventDefault();
 
+            var that = this;
             var name = this.$(".form-create .name").val();
             var stack = this.$(".form-create .stack").val();
 
             this.loading(this.projectsRemote.collection.createRemote(name, stack))
-            .fail(_.partial(this.alert, "error").bind(this));
+            .then(function() {
+                that.toggleDialog("create", false);
+            }, _.partial(this.alert, "error").bind(this));
         },
 
         // Submit form logout

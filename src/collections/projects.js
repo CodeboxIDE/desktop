@@ -93,7 +93,6 @@ define([
                 'stack': stack
             })
             .then(function(box) {
-                console.log(box);
                 return that.loadRemote();
             });
         }
