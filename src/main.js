@@ -126,6 +126,13 @@ require([
             this.$(".dialog-"+name).toggleClass("active", st);
         },
 
+        // Alert
+        alert: function(type, message) {
+            this.$(".dialog-alert .content").text(message.message || message);
+            this.$(".dialog-alert").attr("class", "dialog dialog-alert type-"+type);
+            this.toggleDialog("alert");
+        },
+
         // Click to open a file
         onSelectFolder: function(e) {
             if (e) e.preventDefault();
@@ -153,7 +160,8 @@ require([
             var password = this.$(".form-login .password").val();
 
 
-            this.loading(account.login(email, password));
+            this.loading(account.login(email, password))
+            .fail(_.partial(this.alert, "error").bind(this));
         },
 
         // Submit form create
@@ -164,9 +172,7 @@ require([
             var stack = this.$(".form-create .stack").val();
 
             this.loading(this.projectsRemote.collection.createRemote(name, stack))
-            .fail(function(err) {
-                console.error(err);
-            });
+            .fail(_.partial(this.alert, "error").bind(this));
         },
 
         // Submit form logout
