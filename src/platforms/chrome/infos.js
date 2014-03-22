@@ -2,6 +2,12 @@ define(function() {
     return {
         name: "Chrome",
 
-        allowOpenLocal: false
+        // Only remote boxes on chrome
+        allowOpenLocal: false,
+
+        // When app is ready
+        ready: function() {
+
+        }
     };
 });

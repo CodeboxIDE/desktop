@@ -79,11 +79,13 @@ require([
         },
 
         finish: function() {
-            // Add projects
-            this.projectsLocal.$el.appendTo(this.$(".projects-local"));
-            this.projectsLocal.collection.load();
+            // Add local projects list
+            if (platform.allowOpenLocal) {
+                this.projectsLocal.$el.appendTo(this.$(".projects-local"));
+                this.projectsLocal.collection.load();
+            }
 
-            // Add remote boxes
+            // Add remote boxes list
             if (account.isConnected()) {
                 this.projectsRemote.$el.appendTo(this.$(".projects-remote"));
                 this.projectsRemote.collection.loadRemote();
@@ -95,10 +97,7 @@ require([
                 if (!account.isConnected()) this.onToggleSettings();
             }
             
-
-            /*var win = node.gui.Window.get();
-            win.show();
-            win.focus();*/
+            platform.ready();
 
             return Application.__super__.finish.apply(this, arguments);
         },

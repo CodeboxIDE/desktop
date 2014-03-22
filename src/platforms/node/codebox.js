@@ -6,7 +6,7 @@ define([
         var _path = project.get("path");
         var encodedPath = encodeURIComponent(_path);
         var env = encodeURIComponent(JSON.stringify(process.env));
-        var win = node.gui.Window.open("../src/ide.html?path="+encodedPath+"&env="+env, {
+        var win = node.gui.Window.open("../src/platforms/node/ide.html?path="+encodedPath+"&env="+env, {
             'title': [project.name(),  "Codebox"].join('-'),
             'position': 'center',
             'width': 1024,

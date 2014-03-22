@@ -245,7 +245,7 @@ module.exports = function (grunt) {
 
     // Build
     grunt.registerTask('build', [
-        'hr'
+        'hr:node'
     ]);
 
     // Desktop app generation
