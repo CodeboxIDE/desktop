@@ -2,7 +2,9 @@
     <div class="projects-remote"></div>
     <div class="projects-local"></div>
 </div>
-<div class="settings">
+
+<!-- Settings / Login -->
+<div class="dialog dialog-settings">
     <p class="text-center">
         <img src="static/images/icons/128.png" width="48"/>
     </p>
@@ -31,6 +33,27 @@
     <% } %>
 </div>
 
+<!-- Box creation -->
+<div class="dialog dialog-create">
+    <p class="text-center">
+        <img src="static/images/icons/128.png" width="48"/>
+    </p>
+    <form role="form" class="form-create">
+        <p class="help-block text-center">Create a new box.</p>
+        <div class="form-group">
+            <input type="text" class="form-control name" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+            <select class="form-control stack">
+            <% _.each(stacks, function(stack, stackId) { %>
+                <option value="<%- stackId %>"><%- stack.name %></option>
+            <% }); %>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-block btn-default">Create</button>
+    </form>
+</div>
+
 <% if (!account.isConnected()) { %>
 <div class="login-alert">
     Access your cloud boxes from this application
@@ -40,8 +63,8 @@
 <div class="toolbar">
     <div class="btn-group btn-group-justified">
         <% if (platform.allowOpenLocal) { %><a href="#" class="btn btn-lg btn-default button-open">open</a><% } %>
-        <a href="#" class="btn btn-lg btn-default button-create <% if (!account.isConnected()) { %>disabled<% } %>">create</a>
-        <a href="#" class="btn btn-lg btn-default button-settings">settings</a>
+        <a href="#" class="btn btn-lg btn-default <% if (!account.isConnected()) { %>disabled<% } %>" data-toggle-dialog="create">create</a>
+        <a href="#" class="btn btn-lg btn-default" data-toggle-dialog="settings">settings</a>
     </div>
 </div>
 <input type="file" class="project-open" nwdirectory style="display: none;" />

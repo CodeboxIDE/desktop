@@ -32,7 +32,6 @@ define([
         login: function(email, password) {
             var that = this;
 
-            console.log("login ", email, password);
             return codeboxIO().login(email, password)
             .then(function(account) {
                 that.set({
@@ -50,7 +49,11 @@ define([
             this.clear();
             this.save();
             this.load();
+        },
 
+        // CodeboxIO client
+        client: function() {
+            return codeboxIO(this.get("token"));
         }
     });
 

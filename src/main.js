@@ -6,9 +6,10 @@ require([
     "platform/infos",
     "platform/update",
     "core/account",
+    "core/stacks",
     "views/projects",
     "text!resources/templates/main.html"
-], function(_, $, hr, args, platform, update, account, ProjectsView, templateFile) {
+], function(_, $, hr, args, platform, update, account, stacks, ProjectsView, templateFile) {
     // Configure hr
     hr.configure(args);
 
@@ -23,15 +24,18 @@ require([
         metas: {},
         links: {},
         events: {
+            // Dialog
+            "click *[data-toggle-dialog]": "onToggleDialog",
+
             // Toolbar buttons
             "click .toolbar .button-open": "onSelectFolder",
-            "click .toolbar .button-settings": "onToggleSettings",
 
             // Files selection
             "change .project-open": "onOpenFolder",
 
             // Forms
             "submit .form-login": "onSubmitLogin",
+            "submit .form-create": "onSubmitCreate",
             "submit .form-logout": "onSubmitLogout"
         },
 
@@ -68,7 +72,8 @@ require([
         templateContext: function() {
             return {
                 'account': account,
-                'platform': platform
+                'platform': platform,
+                'stacks': stacks
             };
         },
 
@@ -94,7 +99,7 @@ require([
             if (platform.allowOpenLocal) {
                 if (this.projectsLocal.collection.size() == 0 && !account.isConnected()) this.onSelectFolder();
             } else {
-                if (!account.isConnected()) this.onToggleSettings();
+                if (!account.isConnected()) this.toggleDialog("settings", true);
             }
             
             platform.ready();
@@ -115,6 +120,12 @@ require([
             return p;
         },
 
+        // Toggle a dialog
+        toggleDialog: function(name, st) {
+            this.$(".dialog:not(.dialog-"+name+")").removeClass("active");
+            this.$(".dialog-"+name).toggleClass("active", st);
+        },
+
         // Click to open a file
         onSelectFolder: function(e) {
             if (e) e.preventDefault();
@@ -122,9 +133,9 @@ require([
         },
 
         // Click to toggle settings
-        onToggleSettings: function(e) {
+        onToggleDialog: function(e) {
             if (e) e.preventDefault();
-            this.$(".settings").toggleClass("active");
+            this.toggleDialog($(e.currentTarget).data("toggle-dialog"));
         },
 
         // When folder selector changed
@@ -138,12 +149,24 @@ require([
         onSubmitLogin: function(e) {
             if (e) e.preventDefault();
 
-            var $btn = this.$(".form-login button");
             var email = this.$(".form-login .email").val();
             var password = this.$(".form-login .password").val();
 
 
             this.loading(account.login(email, password));
+        },
+
+        // Submit form create
+        onSubmitCreate: function(e) {
+            if (e) e.preventDefault();
+
+            var name = this.$(".form-create .name").val();
+            var stack = this.$(".form-create .stack").val();
+
+            this.loading(this.projectsRemote.collection.createRemote(name, stack))
+            .fail(function(err) {
+                console.error(err);
+            });
         },
 
         // Submit form logout

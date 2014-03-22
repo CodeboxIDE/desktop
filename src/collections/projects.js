@@ -3,9 +3,8 @@ define([
     "hr/hr",
     "models/project",
     "platform/fs",
-    "platform/api",
     "core/account",
-], function(_, hr, Project, fs, codeboxIO, account) {
+], function(_, hr, Project, fs, account) {
     var Projects = hr.Collection.extend({
         model: Project,
 
@@ -60,12 +59,10 @@ define([
 
         // Load remote box
         loadRemote: function() {
-            var that = this, client;
+            var that = this;
 
             that.load();
-
-            client = codeboxIO(account.get("token"));
-            return client.boxes()
+            return account.client().boxes()
             .then(function(boxes) {
                 that.reset(
                     _.chain(boxes)
@@ -84,6 +81,20 @@ define([
                     .value()
                 );
                 that.save();
+            });
+        },
+
+        // Create a new remote box
+        createRemote: function(name, stack) {
+            var that = this;
+
+            return account.client().create({
+                'name': name,
+                'stack': stack
+            })
+            .then(function(box) {
+                console.log(box);
+                return that.loadRemote();
             });
         }
     });
