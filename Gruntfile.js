@@ -93,6 +93,7 @@ module.exports = function (grunt) {
         nodewebkit: {
             mac: {
                 options: {
+                    app_name: "Codebox",
                     build_dir: './appBuilds',
                     mac: true,
                     win: false,
@@ -117,6 +118,7 @@ module.exports = function (grunt) {
             },
             linux32: {
                 options: {
+                    app_name: "Codebox",
                     build_dir: './appBuilds',
                     mac: false,
                     win: false,
@@ -135,6 +137,7 @@ module.exports = function (grunt) {
             },
             linux64: {
                 options: {
+                    app_name: "Codebox",
                     build_dir: './appBuilds',
                     mac: false,
                     win: false,
