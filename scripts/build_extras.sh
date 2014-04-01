@@ -19,6 +19,11 @@ GIT_VERSION="v1.9.0"
 GIT_URL="https://s3.amazonaws.com/codebox_build/git-${GIT_VERSION}-${PLATFORM}-${TARGET_ARCH}.tar.gz"
 GIT_DIR="${EXTRAS_DIR}/git"
 
+# Version of git to build
+CTAGS_VERSION="v5.8"
+CTAGS_URL="https://s3.amazonaws.com/codebox_build/ctags-${CTAGS_VERSION}-${PLATFORM}-${TARGET_ARCH}.tar.gz"
+CTAGS_DIR="${EXTRAS_DIR}/ctags"
+
 # Utility function
 function cleanup {
     echo "Cleaning up ..."
@@ -38,3 +43,4 @@ function download_to {
 
 download_to ${GIT_URL} ${GIT_DIR}
 download_to ${NODE_URL} ${NODE_DIR}
+download_to ${CTAGS_URL} ${CTAGS_DIR}
