@@ -21,7 +21,7 @@
         "lodash": "2.4.1",
         "harbor": "0.2.0",
         "qpatch": "0.0.8",
-        "codebox": "0.7.3",
+        "codebox": "0.7.4",
         "semver": "2.2.1",
         "request": "2.27.0",
         "codebox-io": "0.4.1",
