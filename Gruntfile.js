@@ -102,7 +102,10 @@ module.exports = function (grunt) {
                     mac_icns: "./build/static/images/icons/mac512.icns",
                     credits: "./src/credits.html",
                     version: NW_VERSION,
-                    zip: false
+                    zip: false,
+                    plist_extras: {
+                        'LSApplicationCategoryType': 'public.app-category.developer-tools',
+                    },
                 },
                 src: [
                     "./**",
