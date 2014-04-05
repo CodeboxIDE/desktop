@@ -105,6 +105,7 @@ module.exports = function (grunt) {
                     zip: false,
                     plist_extras: {
                         'LSApplicationCategoryType': 'public.app-category.developer-tools',
+                        'CFBundleIdentifier': 'io.codebox.desktop',
                     },
                 },
                 src: [
