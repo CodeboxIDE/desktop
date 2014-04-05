@@ -99,7 +99,7 @@ module.exports = function (grunt) {
                     win: false,
                     linux32: false,
                     linux64: false,
-                    mac_icns: "./build/static/images/icons/mac512.icns",
+                    mac_icns: "./build/static/images/icons/mac1024.icns",
                     credits: "./src/credits.html",
                     version: NW_VERSION,
                     zip: false,
