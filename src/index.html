@@ -1,17 +1,42 @@
 <html>
     <body>
-        <input type="file" id="fileDialog" webkitdirectory style="display: none;"/>
+        <input type="file" id="fileDialog" nwdirectory style="display: none;"/>
     </body>
     <script>
+    var Q = require("q");
     var codebox = require("codebox");
+    var harbor = require("harbor");
+    var gui = require('nw.gui');
+
+    var win = gui.Window.get();
+    var ports = new harbor(19000, 20000);
 
     var start = function(folder) {
+        var url;
 
+        console.log("start codebox on", folder);
+        return Q.nfcall(ports.claim.bind(ports), "codebox")
+        .then(function(port) {
+            url = "http://localhost:"+port;
+
+            return codebox.start({
+                'port': port,
+                'root': folder
+            });
+        })
+        .then(function() {
+            document.body.innerHTML = "<iframe src='"+url+"' nwdisable nwfaketop></iframe>";
+            win.maximize();
+            win.show();
+            win.focus();
+        })
+        .fail(console.log.bind(console));
     };
 
     var chooser = document.querySelector("#fileDialog");
     chooser.addEventListener("change", function(evt) {
-        alert(this.value);
+        console.log("folder", this.value);
+        start(this.value);
     }, false);
     chooser.click();
     </script>
