@@ -10,5 +10,10 @@ You need to have **node-webkit** installed.
 
 ```
 $ npm install .
+$ ./scripts/nwbuild.sh
+$ cd ./node_modules/codebox
+$ npm install .
+$ grunt
+$ cd ../../
 $ nw ./
 ```

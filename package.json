@@ -16,6 +16,7 @@
         "q": "1.0.1",
         "lodash": "2.4.1",
         "harbor": "0.2.0",
+        "nw-gyp": "0.12.2",
         "codebox": "git+https://github.com/CodeboxIDE/codebox.git#05c7392c4742f37a94d2c134d82412482c85cbfa"
     },
     "window": {

@@ -1,4 +1,26 @@
 <html>
+    <head>
+        <title>Codebox</title>
+        <style>
+        body {
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+        </style>
+    </head>
     <body>
         <input type="file" id="fileDialog" nwdirectory style="display: none;"/>
     </body>
@@ -25,10 +47,13 @@
             });
         })
         .then(function() {
+            console.log("\n\n\n\n\n\n\n\n!!!!done !\n\n\n\n\n\n\n\n\n\n\n\n");
             document.body.innerHTML = "<iframe src='"+url+"' nwdisable nwfaketop></iframe>";
-            win.maximize();
+
             win.show();
             win.focus();
+            win.resizeTo(1000, 600);
+            win.maximize();
         })
         .fail(console.log.bind(console));
     };
