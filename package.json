@@ -1,37 +1,30 @@
 {
-    "name": "codebox",
-    "version": "0.7.4",
-    "main": "build/index.html",
+    "name": "desktop",
+    "description": "Make it easy to build a package manager for client/node large applications",
+    "version": "0.0.0",
+    "main": "src/index.html",
+    "author": "FriendCode Inc. <contact@friendco.de>",
+    "license": "Apache 2",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CodeboxIDE/desktop.git"
+    },
+    "keywords": [
+        "packages", "bower", "npm"
+    ],
+    "dependencies": {
+        "q": "1.0.1",
+        "lodash": "2.4.1",
+        "harbor": "0.2.0",
+        "codebox": "git+https://github.com/CodeboxIDE/codebox.git#05c7392c4742f37a94d2c134d82412482c85cbfa"
+    },
     "window": {
         "title": "Codebox",
-        "width": 400,
-        "height": 500,
-        "min_height": 400,
-        "min_width": 400,
-        "max_width": 400,
-        "icon": "build/static/images/icons/128.png",
+        "width": 0,
+        "height": 0,
         "position": "center",
         "show": false,
         "toolbar": false,
         "frame": true
-    },
-    "dependencies": {
-        "hr.js": "0.6.4",
-        "q": "0.9.6",
-        "lodash": "2.4.1",
-        "harbor": "0.2.0",
-        "qpatch": "0.0.8",
-        "codebox": "0.7.6",
-        "semver": "2.2.1",
-        "request": "2.27.0",
-        "codebox-io": "0.4.1",
-        "nw-gyp": "0.12.2",
-        "grunt-exec": "0.4.5",
-        "grunt-node-webkit-builder": "0.1.16",
-        "grunt-contrib-compress": "0.6.0",
-        "grunt-contrib-copy": "0.5.0",
-        "grunt-contrib-clean": "0.5.0",
-        "grunt-contrib-less": "0.10.0",
-        "grunt-manifest": "0.4.0"
     }
 }

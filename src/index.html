@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <input type="file" id="fileDialog" webkitdirectory style="display: none;"/>
+    </body>
+    <script>
+    var codebox = require("codebox");
+
+    var start = function(folder) {
+
+    };
+
+    var chooser = document.querySelector("#fileDialog");
+    chooser.addEventListener("change", function(evt) {
+        alert(this.value);
+    }, false);
+    chooser.click();
+    </script>
+</html>
